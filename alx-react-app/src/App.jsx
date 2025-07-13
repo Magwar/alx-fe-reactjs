@@ -15,7 +15,7 @@ function App() {
       <UserProfile
         name="Alice"
         age="25"
-        bio="Learning is to earning as earning is to learning"
+        bio="Loves hiking and photography"
       />
     </>
   );
