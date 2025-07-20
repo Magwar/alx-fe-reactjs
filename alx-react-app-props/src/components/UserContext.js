@@ -7,7 +7,8 @@
 // that can be provided at a high level (like in App.jsx) and consumed deeply
 // (like in UserDetails.jsx)—eliminating the need to pass data through intermediate
 // components like ProfilePage and UserInfo.
+import {createContext, useContext } from "react";
 
-React.createContext();
+const UserContext = createContext();
 
-export default React.createContext
+export default UserContext;
