@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function Navbar() {
@@ -20,22 +20,22 @@ function Navbar() {
     textDecoration: 'underline',
   };
   return (
-    <navbar style={navbarStyle}>
+    <nav style={navbarStyle}>
       <ul style={{ listStyleType: 'none', margin: 0, padding: 0, display: 'flex' }}>
         <li style={linkStyle}>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li style={linkStyle}>
-          <a href="/about">About</a>
+          <Link to="/about">About</Link>
         </li>
         <li style={linkStyle}>
-          <a href="/services">Services</a>
+          <Link to="/services">Services</Link>
         </li>
         <li style={linkStyle}>
-          <a href="/contact">Contact</a>
+          <Link to="/contact">Contact</Link>
         </li>
       </ul>
-    </navbar>
+    </nav>
   );
 }
 
