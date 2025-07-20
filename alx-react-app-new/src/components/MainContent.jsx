@@ -1,12 +1,6 @@
 function MainContent() {
   return (
-    <main 
-    style={{
-      padding: "20px", 
-      fontFamily: "Arial, sans-serif", 
-     backgroundColor: "lightgray" , 
-     color: "black",
-     fontSize }}>
+    <main style={{ padding: "20px", backgroundColor: "#f0f0f0" , borderRadius: "5px" , textAlign: "center", color: "#333"}}>
       <p>I love to visit New York, Paris, and Tokyo.</p>
     </main>
   );
