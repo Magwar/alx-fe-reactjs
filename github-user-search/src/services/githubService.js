@@ -8,7 +8,9 @@ export async function searchUsers({ keyword, location, minRepos }) {
   if (location) query += ` location:${location.trim()}`;
   if (minRepos) query += ` repos:>=${minRepos.trim()}`;
 
-  const searchUrl = `${BASE_URL}/search/users?q=${encodeURIComponent(query)}`;
+const searchUrl = `https://api.github.com/search/users?q=${encodeURIComponent(
+  query
+)}`;
 
   try {
     const searchResponse = await axios.get(searchUrl, {
