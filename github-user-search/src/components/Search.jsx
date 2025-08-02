@@ -20,23 +20,35 @@ function fetchUserData() {
     setError("");
     setResults([]);
 
-    // Build GitHub search query
     let query = `${keyword.trim()} in:login`;
-
     if (location.trim()) query += ` location:${location.trim()}`;
     if (minRepos.trim()) query += ` repos:>=${minRepos.trim()}`;
 
     try {
-      const response = await axios.get(
+      // First search
+      const searchResponse = await axios.get(
         `${BASE_URL}?q=${encodeURIComponent(query)}`,
         {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
+          headers: { Authorization: `Bearer ${TOKEN}` },
         }
       );
 
-      setResults(response.data.items || []);
+      const users = searchResponse.data.items || [];
+
+      // Fetch full profile for each user
+      const detailedUsers = await Promise.all(
+        users.map(async (user) => {
+          const userResponse = await axios.get(
+            `https://api.github.com/users/${user.login}`,
+            {
+              headers: { Authorization: `Bearer ${TOKEN}` },
+            }
+          );
+          return userResponse.data;
+        })
+      );
+
+      setResults(detailedUsers);
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
@@ -98,6 +110,10 @@ function fetchUserData() {
             />
             <div>
               <h2 className="text-lg font-semibold">{user.login}</h2>
+              <p className="text-gray-700">
+                {user.location || "Location not available"}
+              </p>
+              <p className="text-gray-700">Public Repos: {user.public_repos}</p>
               <a
                 href={user.html_url}
                 target="_blank"
