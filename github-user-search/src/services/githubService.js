@@ -3,12 +3,14 @@ import axios from "axios";
 const BASE_URL = "https://api.github.com";
 const TOKEN = import.meta.env.VITE_APP_GITHUB_API_KEY;
 
-export async function searchUsers({ keyword, location, minRepos }) {
+export async function fetchUserData({ keyword, location, minRepos }) {
   let query = `${keyword.trim()} in:login`;
   if (location) query += ` location:${location.trim()}`;
   if (minRepos) query += ` repos:>=${minRepos.trim()}`;
 
-const searchUrl = `https://api.github.com/search/users?q=${encodeURIComponent(query)}`;
+const searchUrl = `https://api.github.com/search/users?q=${encodeURIComponent(
+  query
+)}`;
 
   try {
     const searchResponse = await axios.get(searchUrl, {
