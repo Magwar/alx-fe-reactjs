@@ -25,7 +25,7 @@ const handleSubmit = async (e) => {
     const users = await searchUsers({ keyword, location, minRepos });
     setResults(users);
   } catch (err) {
-    setError("Something went wrong. Please try again.");
+    setError("Looks like we cant find the user");
   } finally {
     setLoading(false);
   }
