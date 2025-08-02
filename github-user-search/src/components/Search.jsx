@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { searchUsers } from "../services/githubService";
 
 
@@ -23,10 +22,9 @@ const handleSubmit = async (e) => {
   setResults([]);
 
   try {
-    const data = await searchUsers({ keyword, location, minRepos });
-    setResults(data);
+    const users = await searchUsers({ keyword, location, minRepos });
+    setResults(users);
   } catch (err) {
-    console.error(err);
     setError("Something went wrong. Please try again.");
   } finally {
     setLoading(false);
