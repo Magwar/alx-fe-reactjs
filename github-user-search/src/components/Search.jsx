@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchUserData } from "../services/githubService";
+import { searchUsers } from "../services/githubService";
 
 
 const BASE_URL = 'https://api.github.com/search/users';
