@@ -2,22 +2,26 @@ import { useEffect } from "react";
 import { useRecipeStore } from "./RecipeStore";
 
 const RecommendationsList = () => {
-  const recommendations = useRecipeStore((state) => state.recommendations);
-  const generateRecommendations = useRecipeStore(
-    (state) => state.generateRecommendations
-  );
+  const recipes = useRecipeStore((state) => state.recipes);
+  const recommended = useRecipeStore((state) => state.recommendations);
+  const generateRecommendations =
+    useRecipeStore.getState().generateRecommendations;
 
   useEffect(() => {
     generateRecommendations();
-  }, [generateRecommendations]);
+  }, []);
+
+  const validRecommendations = recommended
+    .map((r) => recipes.find((x) => x.id === r.id))
+    .filter(Boolean);
 
   return (
     <div>
       <h2>Recommended for You</h2>
-      {recommendations.length === 0 ? (
+      {validRecommendations.length === 0 ? (
         <p>No recommendations available.</p>
       ) : (
-        recommendations.map((recipe) => (
+        validRecommendations.map((recipe) => (
           <div key={recipe.id}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
