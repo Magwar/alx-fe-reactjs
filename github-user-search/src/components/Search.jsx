@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { searchUsers } from "../services/githubService";
+
 
 const BASE_URL = 'https://api.github.com/search/users';
 const TOKEN = import.meta.env.VITE_APP_GITHUB_API_KEY;
@@ -12,50 +14,24 @@ function fetchUserData() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!keyword.trim()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!keyword.trim()) return;
 
-    setLoading(true);
-    setError("");
-    setResults([]);
+  setLoading(true);
+  setError("");
+  setResults([]);
 
-    let query = `${keyword.trim()} in:login`;
-    if (location.trim()) query += ` location:${location.trim()}`;
-    if (minRepos.trim()) query += ` repos:>=${minRepos.trim()}`;
-
-    try {
-      // First search
-      const searchResponse = await axios.get(
-        `${BASE_URL}?q=${encodeURIComponent(query)}`,
-        {
-          headers: { Authorization: `Bearer ${TOKEN}` },
-        }
-      );
-
-      const users = searchResponse.data.items || [];
-
-      // Fetch full profile for each user
-      const detailedUsers = await Promise.all(
-        users.map(async (user) => {
-          const userResponse = await axios.get(
-            `https://api.github.com/users/${user.login}`,
-            {
-              headers: { Authorization: `Bearer ${TOKEN}` },
-            }
-          );
-          return userResponse.data;
-        })
-      );
-
-      setResults(detailedUsers);
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const data = await searchUsers({ keyword, location, minRepos });
+    setResults(data);
+  } catch (err) {
+    console.error(err);
+    setError("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="max-w-xl mx-auto mt-10 px-4">
