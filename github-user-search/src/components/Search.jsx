@@ -5,7 +5,7 @@ const BASE_URL = "https://api.github.com";
 const TOKEN = import.meta.env.VITE_APP_GITHUB_API_KEY;
 // Ensure you have set this environment variable in your .env file
 
-function Search() {
+function fetchUserData() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -78,4 +78,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default fetchUserData;
