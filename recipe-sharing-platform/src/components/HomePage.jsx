@@ -12,7 +12,7 @@ const HomePage = () => {
       <h1 className="text-3xl font-bold text-center my-6">
         Recipe Sharing Platform
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 px-4">
         {recipes.map((recipe) => (
           <div key={recipe.id} className="border rounded-lg p-4 shadow">
                 <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded"/>
