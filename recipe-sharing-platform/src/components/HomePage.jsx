@@ -16,7 +16,7 @@ const HomePage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
         {recipes.map((recipe) => (
           <div key={recipe.id} className="border rounded-lg p-4 shadow">
-                <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded"/>
+                <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded-lg"/>
                 <h2 className="text-xl font-semibold mt-4">{recipe.title}</h2>
                 <p className="text-gray-600 mt-2">{recipe.summary}</p>
                 <Link to={`/recipe/${recipe.id}`} className="inline-block mt-4 text-blue-500 hover:underline">
